@@ -6,8 +6,7 @@ const Footer = () => {
     <div>
       <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm bg-black p-10 border rounded-xl">
         <div>
-          <div className="w-max bg-gradient-to-r from-pink-100 to-pink-200 mb-5 border rounded-tl-3xl rounded-tr-none rounded-bl-none rounded-br-3xl
-">
+          <div className="w-max bg-gradient-to-r from-pink-100 to-pink-200 mb-5 border rounded-tl-3xl rounded-tr-none rounded-bl-none rounded-br-3xl">
             <img src={assets.logo} className="p-1 pt-2.5 w-40" alt="" />
           </div>
           <p className="w-full md:w-2/3 text-gray-50">
