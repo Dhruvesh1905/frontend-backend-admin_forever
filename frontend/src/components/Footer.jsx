@@ -6,14 +6,15 @@ const Footer = () => {
     <div>
       <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm bg-black p-10 border rounded-xl">
         <div>
-        <div className="w-max bg-white mb-5 border rounded-tl-3xl rounded-tr-none rounded-bl-none rounded-br-3xl">
-            <img src={assets.logo} className= "p-3 w-40" alt="" />
+          <div className="w-max bg-gradient-to-r from-pink-100 to-pink-200 mb-5 border rounded-tl-3xl rounded-tr-none rounded-bl-none rounded-br-3xl
+">
+            <img src={assets.logo} className="p-1 pt-2.5 w-40" alt="" />
           </div>
           <p className="w-full md:w-2/3 text-gray-50">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
-            quibusdam expedita consectetur earum commodi explicabo laboriosam
-            itaque, alias recusandae nobis.Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Dolorum, sunt.
+            Experience seamless shopping with our exclusive collection of
+            premium products. Discover top deals, enjoy hassle-free delivery,
+            and shop with confidence every time. Stay ahead with the latest
+            trends and unbeatable prices—your satisfaction is our priority.
           </p>
         </div>
         <div className="text-gray-50">
@@ -27,16 +28,19 @@ const Footer = () => {
         </div>
 
         <div className="text-gray-50">
-            <p className="text-xl font-medium mb-5">GET IN TOUCH</p>
-            <ul className="flex flex-col gap-1">
-                <li>+1-213-456-7890</li>
-                <li>support@forever.com</li>
-            </ul>
+          <p className="text-xl font-medium mb-5">GET IN TOUCH</p>
+          <ul className="flex flex-col gap-1">
+            <li>+1-213-456-7890</li>
+            <li>support@forvinity.com</li>
+          </ul>
         </div>
       </div>
       <div>
         <hr />
-        <p className="py-5 text-sm text-center"> Copyright 2024@ forever.com - All Rights Reserved</p>
+        <p className="py-5 text-sm text-center">
+          {" "}
+          Copyright 2024@ forvinity.com - All Rights Reserved
+        </p>
       </div>
     </div>
   );
