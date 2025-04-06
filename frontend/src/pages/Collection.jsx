@@ -51,6 +51,35 @@ const Collection = () => {
     }
 
     setFilterProducts(productsCopy);
+
+    // Push GTM event for filter applied
+    window.dataLayer = window.dataLayer || [];
+    const userId = localStorage.getItem("user_id") || null;
+    const userStatus = localStorage.getItem("user_status") || "guest";
+
+
+     // Push event for each filter type separately
+    category.forEach((cat) => {
+      window.dataLayer.push({
+        event: "filter_applied",
+        filter_type: "category",
+        filter_value: cat,
+        product_category: cat,
+        user_id: userId,
+        user_status: userStatus,
+      });
+    });
+
+    subCategory.forEach((subCat) => {
+      window.dataLayer.push({
+        event: "filter_applied",
+        filter_type: "sub_category",
+        filter_value: subCat,
+        product_category: category.length > 0 ? category.join(", ") : "All",
+        user_id: userId,
+        user_status: userStatus,
+      });
+    });
   };
 
   const sortProduct = () => {

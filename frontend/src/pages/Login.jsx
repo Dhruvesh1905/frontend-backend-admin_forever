@@ -7,11 +7,22 @@ const Login = () => {
 
   const [currentState, setCurrentState] = useState('Login');
 
-  const {token, setToken, navigate, backendUrl} = useContext(ShopContext);
+  const {token, setToken, setUser, navigate, backendUrl} = useContext(ShopContext);
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+
+  const pushLoginEvent = (platform, userId) => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'login_success',
+      page_type: 'login',
+      login_platform: platform,
+      user_id: userId,
+      user_status: currentState === 'Sign Up' ? 'new' : 'returning',
+    });
+  };
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -19,9 +30,22 @@ const Login = () => {
       if (currentState === 'Sign Up') {
         const response = await axios.post(backendUrl + '/api/user/register', {name,email,password});
 
-        if (response.data.success) {
+        if (response.data.success) {    
+          const { user } = response.data;            
           setToken(response.data.token)
           localStorage.setItem('token', response.data.token)
+
+          setUser(user); 
+          localStorage.setItem("user", JSON.stringify(user));
+           
+          // Push login_success event to dataLayer
+          const userId = parseJwt(response.data.token)?.id;
+          const userStatus = 'new';
+          localStorage.setItem('user_status', userStatus);
+          localStorage.setItem('user_id', userId);
+
+          pushLoginEvent('email', userId);
+
         }
         else{
           toast.error(response.data.message)
@@ -32,9 +56,24 @@ const Login = () => {
         const response = await axios.post(backendUrl + '/api/user/login', {email, password});
 
         if(response.data.success){
+          const { user } = response.data;
           setToken(response.data.token)
           localStorage.setItem('token', response.data.token)
-        }
+
+          
+          setUser(user); 
+          localStorage.setItem("user", JSON.stringify(user));
+
+           // Push login_success event to dataLayer
+           const userId = parseJwt(response.data.token)?.id;
+
+           // Store non-PII user values for GA4 custom events
+           const userStatus = 'returning';
+           localStorage.setItem('user_status', userStatus);
+           localStorage.setItem('user_id', userId);
+
+           pushLoginEvent('email', userId);
+          }
         else{
           toast.error(response.data.message)
         }
@@ -45,6 +84,14 @@ const Login = () => {
       toast.error(error.message)      
     }
   }
+
+  const parseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      return null;
+    }
+  };
 
   useEffect(() => {
     if (token) {

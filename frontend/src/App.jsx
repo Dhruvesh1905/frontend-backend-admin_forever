@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Verify from "./pages/Verify";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import Profile from "./pages/Profile";
 
 const App = () => {
   const location = useLocation();
@@ -60,6 +61,8 @@ const App = () => {
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/verify" element={<Verify />} />
+        <Route path="/profile" element={<Profile />} />
+
       </Routes>
       <Footer />
     </div>
